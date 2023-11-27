@@ -8,7 +8,7 @@ E.g. [1, 4, 6, 3, 2] returns 5. */
 
 function smallestMissingInt(intArr: number[]):number{
     // Remove dupilcates and use a set for quicker searching
-    const intSet = new Set(intArr);
+    const intSet = new Set<number>(intArr);
 
     // iterate though the set starting from 1 to the set length
     let intToFind: number = 1;
