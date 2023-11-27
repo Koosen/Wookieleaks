@@ -26,7 +26,6 @@ function findCommonConsRepValue(strArr:string[]):number{
     } else {
         return 0
     }
-    
 }
 
 // The Basics
