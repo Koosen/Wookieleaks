@@ -6,9 +6,23 @@ positive integer which is not in array A.
 
 E.g. [1, 4, 6, 3, 2] returns 5. */
 
-function SmallestMissingInt(){
+function smallestMissingInt(IntArr: number[]):number{
 
-
+    return 1
 }
 
+
+//Testing
+let reallyBigNumberArray: number[] = []
+for (let i = 0; i < 10000; i++){
+    reallyBigNumberArray.push(i)
+}
+
+// The following console.logs should equal true
+console.log(typeof(smallestMissingInt([1])) === "number") 
+console.log(smallestMissingInt([1,2,3]) === 4)      
+console.log(smallestMissingInt([-1,-2,-3]) === 1)   
+console.log(smallestMissingInt([1,0,-1]) === 2)     
+console.log(smallestMissingInt([]) === 1)    
+console.log(smallestMissingInt(reallyBigNumberArray) === 10000)       
 
