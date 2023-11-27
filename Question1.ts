@@ -8,38 +8,39 @@ E.g. [1, 4, 6, 3, 2] returns 5. */
 
 function smallestMissingInt(intArr: number[]):number{
     // Remove dupilcates and use a set for quicker searching
-    const intSet = new Set(intArr)
+    const intSet = new Set(intArr);
 
     // iterate though the set starting from 1 to the set length
-    let intToFind: number = 1
-    let isAnswerFound: boolean = false
+    let intToFind: number = 1;
+    let isAnswerFound: boolean = false;
     
     while (!isAnswerFound && intToFind <= intSet.size){
         if(intSet.has(intToFind)){
-            intToFind++
+            intToFind++;
         } else {
-            isAnswerFound = true
+            isAnswerFound = true;
         }
     }
 
-    return intToFind
+    return intToFind;
 }
 
 
 // Testing set up
-let reallyBigNumberArray: number[] = []
+let reallyBigNumberArray: number[] = [];
 for (let i = 0; i < 10000; i++){
-    reallyBigNumberArray.push(i)
+    reallyBigNumberArray.push(i);
 }
 
-// The following console.logs should display true
-console.log(typeof(smallestMissingInt([1])) === "number")
-console.log(smallestMissingInt([1,2,3]) === 4)
-console.log(smallestMissingInt([-1,-2,-3]) === 1)
-console.log(smallestMissingInt([1,0,-1]) === 2)
-console.log(smallestMissingInt([]) === 1)
-console.log(smallestMissingInt(reallyBigNumberArray) === 10000)
+// The Basics. 
+console.log(typeof(smallestMissingInt([1])) === "number");
+console.log(smallestMissingInt([1,2,3]) === 4);
+console.log(smallestMissingInt([-1,-2,-3]) === 1);
+console.log(smallestMissingInt([1,0,-1]) === 2);
 
-//Throw in the question example because why not? you can't have enough testing
-console.log(smallestMissingInt([1, 4, 6, 3, 2]) === 5)
+// The Extremes.
+console.log(smallestMissingInt([]) === 1);
+console.log(smallestMissingInt(reallyBigNumberArray) === 10000);
 
+// Throw in the question example because why not? you can't have enough testing.
+console.log(smallestMissingInt([1, 4, 6, 3, 2]) === 5);
