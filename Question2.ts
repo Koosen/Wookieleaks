@@ -4,11 +4,29 @@ of strings. The strings will all be up to 5 characters from the
 lowercase English alphabet. Return an integer representing the
 highest number of consecutive repeated strings in array A.
 
-E.g.: [‘", ‘jq’, ‘bpa’, ‘bpa’, ‘q’] returns 2. */
+E.g.: [‘a’, ‘jq’, ‘bpa’, ‘bpa’, ‘q’] returns 2. */
 
 function findCommonConsRepValue(strArr:string[]):number{
-
-    return 1
+    // Check to make sure there are values in the array
+    if(strArr.length > 0) {
+        // create 2 pointers
+        let maxConsec:number = 0
+        let currentConsec:number = 0
+        
+        // Iterate between each value in the array, if there is a match increase the counter, reset the counter on a non match
+        for(let i:number = 1; i <= strArr.length; i++){
+                if (strArr[i-1] === strArr[i]) {
+                    currentConsec++
+                    maxConsec = currentConsec > maxConsec ? currentConsec : maxConsec
+                } else {
+                    currentConsec = 0
+                }
+            }
+            return maxConsec + 1
+    } else {
+        return 0
+    }
+    
 }
 
 // The Basics
