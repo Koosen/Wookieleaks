@@ -6,23 +6,40 @@ positive integer which is not in array A.
 
 E.g. [1, 4, 6, 3, 2] returns 5. */
 
-function smallestMissingInt(IntArr: number[]):number{
+function smallestMissingInt(intArr: number[]):number{
+    // Remove dupilcates and use a set for quicker searching
+    const intSet = new Set(intArr)
 
-    return 1
+    // iterate though the set starting from 1 to the set length
+    let intToFind: number = 1
+    let isAnswerFound: boolean = false
+    
+    while (!isAnswerFound && intToFind <= intSet.size){
+        if(intSet.has(intToFind)){
+            intToFind++
+        } else {
+            isAnswerFound = true
+        }
+    }
+
+    return intToFind
 }
 
 
-//Testing
+// Testing set up
 let reallyBigNumberArray: number[] = []
 for (let i = 0; i < 10000; i++){
     reallyBigNumberArray.push(i)
 }
 
-// The following console.logs should equal true
-console.log(typeof(smallestMissingInt([1])) === "number") 
-console.log(smallestMissingInt([1,2,3]) === 4)      
-console.log(smallestMissingInt([-1,-2,-3]) === 1)   
-console.log(smallestMissingInt([1,0,-1]) === 2)     
-console.log(smallestMissingInt([]) === 1)    
-console.log(smallestMissingInt(reallyBigNumberArray) === 10000)       
+// The following console.logs should display true
+console.log(typeof(smallestMissingInt([1])) === "number")
+console.log(smallestMissingInt([1,2,3]) === 4)
+console.log(smallestMissingInt([-1,-2,-3]) === 1)
+console.log(smallestMissingInt([1,0,-1]) === 2)
+console.log(smallestMissingInt([]) === 1)
+console.log(smallestMissingInt(reallyBigNumberArray) === 10000)
+
+//Throw in the question example because why not? you can't have enough testing
+console.log(smallestMissingInt([1, 4, 6, 3, 2]) === 5)
 
