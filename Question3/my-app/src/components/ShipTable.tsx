@@ -30,52 +30,87 @@ interface Ship {
     crew: string
 }
 
-async function getShips(page:number){
-    let response = await fetch(`https://swapi.dev/api/starships/?page=${page}`);
-    let data = await response.json();
+async function getShips(page:number):Promise<any>{
+    let response: Response = await fetch(`https://swapi.dev/api/starships/?page=${page}`);
+    let data: any = await response.json();
 
     return data;
 }
 
 function ShipTable(){
     const [shipData, setShipData] = useState<Ship[]>([]);
+    const [totalPages, setTotalPages] = useState<number>(1)
     const [page, setPage] = useState<number>(1)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(()=>{
-        getShips(page).then((res)=>{
-            setShipData(res.results)
+        getShips(page)
+        .then((shipDataResponse)=>{
+            let numberOfPages = Math.ceil(shipDataResponse.count / 10)
+
+            setShipData(shipDataResponse.results)
+            setTotalPages(numberOfPages)
+            setIsLoading(false)
         })
     }, [page])
 
     const updatePage = (mod:number) => {
-         setPage(page + mod === 0 ? 1 : page + mod)
+        setIsLoading(true)
+        setPage(page + mod < 1 || page + mod > totalPages ? page : page + mod)
     }
 
-    return (
-        <div>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Model</th>
-                    <th>Crew</th>
-                </tr>
-                {shipData.map((ship, key) => {
-                    return (
-                        <tr key={key}>
-                            <td>{ship.name}</td>
-                            <td>{ship.model}</td>
-                            <td>{ship.crew}</td>
-                        </tr>
-                    )
-                })}
-            </table>
-            <div>
-                <button onClick={() => updatePage(-1)}>Previous</button>
-                <button onClick={() => updatePage(1)}>Next</button>
+    if (isLoading) {
+        return (
+            <div className="ShipTableDiv">
+                <p className="LoadingText">Loading...</p>
             </div>
-            
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className="ShipTableDiv">
+                <table className="StarshipTable">
+                    <caption>
+                        The Starships of Star Wars
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Model</th>
+                            <th>Crew</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shipData.map((ship, key) => {
+                            return (
+                                <tr key={key}>
+                                    <td>{ship.name}</td>
+                                    <td>{ship.model}</td>
+                                    <td>{ship.crew}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                <div className="PageNumbers">
+                    <p>Page {page} of {totalPages}</p>
+                </div>
+                <div className="NavButtons">
+                    <button 
+                        onClick={() => updatePage(-1)}
+                        disabled={page === 1}>
+                            Previous
+                    </button>
+                    <button 
+                        onClick={() => updatePage(1)}
+                        disabled={page === totalPages}>
+                            Next
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    
 }
 
 export default ShipTable

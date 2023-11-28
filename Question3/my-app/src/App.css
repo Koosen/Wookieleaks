@@ -1,1 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
+.App {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    background: rgb(10,10,10);
+    color: #ffc909;
+    display: inline-flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+table{
+
+    border-collapse: collapse;
+    background-color: rgb(60,60,60);
+    padding: 1rem;
+}
+
+th, td, caption{
+    padding: 1rem;
+}
+
+caption{
+    background: rgb(10,10,10);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+th {
+    background: rgb(20,20,20);
+}
+
+td {
+    color: rgb(240,240,240);
+}
+
+tr:nth-of-type(2n){
+    background: rgb(50,50,50,0.5)
+}
+
+.PageNumbers {
+    display: flex;
+    justify-content: center;
+}
+
+.NavButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+}
+
+.NavButtons button {
+    border: 0;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #ffc909;
+}
+
+.NavButtons button:disabled {
+    background-color: #ffca0985;
+}
